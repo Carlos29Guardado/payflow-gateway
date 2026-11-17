@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PayFlow</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>PayFlow</h1>
+        <p>Pasarela de pagos simulada. El banco falla ~30% de las veces: mira cómo la cola reintenta.</p>
+      </header>
+
+      <section class="tarjeta">
+        <h2>Nuevo pago</h2>
+        <form id="form-pago">
+          <label>
+            Monto
+            <input id="monto" type="number" min="0.01" step="0.01" value="15.00" required />
+          </label>
+          <label>
+            Moneda
+            <input id="moneda" maxlength="3" value="USD" pattern="[A-Za-z]{3}" required />
+          </label>
+          <label class="ancha">
+            Descripción (opcional)
+            <input id="descripcion" placeholder="Camiseta talla M" />
+          </label>
+          <div class="botones ancha">
+            <button type="submit">Pagar</button>
+            <button type="button" id="btn-doble" class="secundario"
+              title="Envía la misma petición dos veces con la misma Idempotency-Key">
+              Enviar 2 veces (misma clave)
+            </button>
+          </div>
+        </form>
+        <p id="mensaje" role="status"></p>
+      </section>
+
+      <section class="tarjeta">
+        <h2>Pagos</h2>
+        <p id="vacio" class="suave">Aún no has creado pagos.</p>
+        <table id="tabla" hidden>
+          <thead>
+            <tr><th>ID</th><th>Monto</th><th>Estado</th><th>Intentos</th><th>Detalle</th></tr>
+          </thead>
+          <tbody id="pagos"></tbody>
+        </table>
+      </section>
+    </main>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
